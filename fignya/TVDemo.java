@@ -24,6 +24,9 @@ public class TVDemo extends Application {
     File file = new File(path);
     @FXML
     private TableColumn<File,String> name;
+    @FXML
+    private TableColumn<File,String> size;
+
 
     //ObservableList<File> list = FXCollections.observableArrayList();
     @Override
@@ -33,11 +36,10 @@ public class TVDemo extends Application {
 
         // Create column UserName (Data type of String).
         TableColumn<File, String> userNameCol //
-                = new TableColumn("name");
+                = new TableColumn<>("name");
 
-        // Create column Email (Data type of String).
-       TableColumn emailCol//
-                = new TableColumn("Email");
+        TableColumn<File, String> emailCol
+                = new TableColumn<>("size");
 
         // Create column FullName (Data type of String).
         /*TableColumn<UserAccount, String> fullNameCol//
@@ -58,12 +60,9 @@ public class TVDemo extends Application {
                 = new TableColumn<File, Boolean>("Active");*/
 
         userNameCol.setCellValueFactory(new PropertyValueFactory<File, String>("name"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<File, String>("size"));
 
         ObservableList<File> list = initList();
-        //initList();
-        for (File file1 : list) {
-            System.out.println(file1);
-        }
         table.setItems(list);
 
 
@@ -78,6 +77,10 @@ public class TVDemo extends Application {
         Scene scene = new Scene(root, 450, 300);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public long getSize() {
+        return file.length();
     }
 
     private ObservableList<File> initList(){
